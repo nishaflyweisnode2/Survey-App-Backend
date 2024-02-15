@@ -6,7 +6,12 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
 const Notification = require('../models/notificationModel');
 const Form1 = require('../models/form1Model')
-
+const Form2 = require('../models/form2Model');
+const Form3 = require('../models/form3Model');
+const Form4 = require('../models/form4Model');
+const Form5 = require('../models/form5Model');
+const Form6 = require('../models/form6Model');
+const Form7 = require('../models/form7Model');
 
 
 
@@ -248,6 +253,528 @@ exports.getForm1ById = async (req, res) => {
         }
 
         return res.status(200).json({ status: 200, message: 'Form1 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm2 = async (req, res) => {
+    try {
+        const categories = await Form2.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form2 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm2ById = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form2.findById(form2Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form2 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm2ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form2.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form2 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm3 = async (req, res) => {
+    try {
+        const categories = await Form3.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form3 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm3ById = async (req, res) => {
+    try {
+        const form3Id = req.params.form3Id;
+        const category = await Form3.findById(form3Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form3 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form3 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm3ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form3.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form2 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm3ByForm2 = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form3.find({ form2: form2Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form2 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm4 = async (req, res) => {
+    try {
+        const categories = await Form4.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form4 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm4ById = async (req, res) => {
+    try {
+        const form4Id = req.params.form4Id;
+        const category = await Form4.findById(form4Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form4 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form4 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm4ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form4.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form4 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm4ByForm2 = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form4.find({ form2: form2Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form4 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm4ByForm3 = async (req, res) => {
+    try {
+        const form3Id = req.params.form3Id;
+        const category = await Form4.find({ form3: form3Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form3 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form4 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm5 = async (req, res) => {
+    try {
+        const categories = await Form5.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form5 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm5ById = async (req, res) => {
+    try {
+        const form5Id = req.params.form5Id;
+        const category = await Form5.findById(form5Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form5 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form5 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm5ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form5.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form5 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm5ByForm2 = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form5.find({ form2: form2Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form5 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm5ByForm3 = async (req, res) => {
+    try {
+        const form3Id = req.params.form3Id;
+        const category = await Form5.find({ form3: form3Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form3 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form5 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm5ByForm4 = async (req, res) => {
+    try {
+        const form4Id = req.params.form4Id;
+        const category = await Form5.find({ form4: form4Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form4 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form5 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm6 = async (req, res) => {
+    try {
+        const categories = await Form6.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form6 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm6ById = async (req, res) => {
+    try {
+        const form6Id = req.params.form6Id;
+        const category = await Form6.findById(form6Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form6 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form6 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm6ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form6.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form6 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm6ByForm2 = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form6.find({ form2: form2Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form6 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm6ByForm3 = async (req, res) => {
+    try {
+        const form3Id = req.params.form3Id;
+        const category = await Form6.find({ form3: form3Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form3 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form6 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm6ByForm4 = async (req, res) => {
+    try {
+        const form4Id = req.params.form4Id;
+        const category = await Form6.find({ form4: form4Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form4 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form6 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm6ByForm5 = async (req, res) => {
+    try {
+        const form5Id = req.params.form5Id;
+        const category = await Form6.find({ form5: form5Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form5 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form6 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm7 = async (req, res) => {
+    try {
+        const categories = await Form7.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form7 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ById = async (req, res) => {
+    try {
+        const form7Id = req.params.form7Id;
+        const category = await Form7.findById(form7Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form7 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form7.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ByForm2 = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form7.find({ form2: form2Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ByForm3 = async (req, res) => {
+    try {
+        const form3Id = req.params.form3Id;
+        const category = await Form7.find({ form3: form3Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form3 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ByForm4 = async (req, res) => {
+    try {
+        const form4Id = req.params.form4Id;
+        const category = await Form7.find({ form4: form4Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form4 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ByForm5 = async (req, res) => {
+    try {
+        const form5Id = req.params.form5Id;
+        const category = await Form7.find({ form5: form5Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form5 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm7ByForm6 = async (req, res) => {
+    try {
+        const form6Id = req.params.form6Id;
+        const category = await Form7.find({ form5: form6Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form6 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form7 category retrieved successfully', data: category });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ status: 500, message: 'Server error', data: null });

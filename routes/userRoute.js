@@ -5,7 +5,7 @@ const router = express()
 
 const authJwt = require("../middlewares/auth");
 
-const { profileImage } = require('../middlewares/imageUpload');
+const { profileImage, form4Image, form5Image, bannerImage } = require('../middlewares/imageUpload');
 
 
 
@@ -54,7 +54,21 @@ module.exports = (app) => {
     app.get('/api/v1/user/form7/byForm4/:form4Id', [authJwt.verifyToken], auth.getForm7ByForm4);
     app.get('/api/v1/user/form7/byForm5/:form5Id', [authJwt.verifyToken], auth.getForm7ByForm5);
     app.get('/api/v1/user/form7/byForm6/:form6Id', [authJwt.verifyToken], auth.getForm7ByForm6);
-
+    app.post('/api/v1/user/form8/create', [authJwt.verifyToken], form4Image.single('image'), auth.createForm8);
+    app.get('/api/v1/user/form8', [authJwt.verifyToken], auth.getAllForm8);
+    app.get('/api/v1/user/form8/:form8Id', [authJwt.verifyToken], auth.getForm8ById);
+    app.get('/api/v1/user/form8/byForm1/:form1Id', [authJwt.verifyToken], auth.getForm8ByForm1);
+    app.get('/api/v1/user/form8/byForm2/:form2Id', [authJwt.verifyToken], auth.getForm8ByForm2);
+    app.get('/api/v1/user/form8/byForm3/:form3Id', [authJwt.verifyToken], auth.getForm8ByForm3);
+    app.get('/api/v1/user/form8/byForm4/:form4Id', [authJwt.verifyToken], auth.getForm8ByForm4);
+    app.get('/api/v1/user/form8/byForm5/:form5Id', [authJwt.verifyToken], auth.getForm8ByForm5);
+    app.get('/api/v1/user/form8/byForm6/:form6Id', [authJwt.verifyToken], auth.getForm8ByForm6);
+    app.get('/api/v1/user/form8/byForm7/:form7Id', [authJwt.verifyToken], auth.getForm8ByForm7);
+    app.put('/api/v1/user/form8/:form8Id', [authJwt.verifyToken], form4Image.single('image'), auth.updateForm8);
+    app.delete('/api/v1/user/form8/:form8Id', [authJwt.verifyToken], auth.deleteForm8);
+    app.get('/api/v1/user/banner', [authJwt.verifyToken], auth.getAllBanners);
+    app.get('/api/v1/user/banner/:id', [authJwt.verifyToken], auth.getBannerById);
+    app.post('/api/v1/user/banner/:id/change-request', [authJwt.verifyToken], auth.createChangeRequest);
 
 
 }

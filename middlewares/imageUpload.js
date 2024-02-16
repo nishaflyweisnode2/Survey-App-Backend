@@ -19,11 +19,10 @@ const storage4 = new CloudinaryStorage({ cloudinary: cloudinary, params: { folde
 const form4Image = multer({ storage: storage4 });
 const storage5 = new CloudinaryStorage({ cloudinary: cloudinary, params: { folder: "GinnoDeviCar/form5Image", allowed_formats: ["jpg", "jpeg", "png", "PNG", "xlsx", "xls", "pdf", "PDF"], }, });
 const form5Image = multer({ storage: storage5 });
-const storage6 = new CloudinaryStorage({ cloudinary: cloudinary, params: { folder: "GinnoDeviCar/form6Image", allowed_formats: ["jpg", "jpeg", "png", "PNG", "xlsx", "xls", "pdf", "PDF"], }, });
-const form6Image = multer({ storage: storage6 });
-const storage7 = new CloudinaryStorage({ cloudinary: cloudinary, params: { folder: "GinnoDeviCar/form7Image", allowed_formats: ["jpg", "jpeg", "png", "PNG", "xlsx", "xls", "pdf", "PDF"], }, });
-const form7Image = multer({ storage: storage7 });
+const storage6 = new CloudinaryStorage({ cloudinary: cloudinary, params: { folder: "GinnoDeviCar/bannerImage", allowed_formats: ["jpg", "jpeg", "png", "PNG", "xlsx", "xls", "pdf", "PDF"], }, });
+const bannerImage = multer({ storage: storage6 });
 
 
 
-module.exports = { profileImage, form1Image, form2Image, form3Image, form4Image, form5Image, form6Image, form7Image }
+
+module.exports = { profileImage, form1Image, form2Image, form3Image, form4Image, form5Image,bannerImage }

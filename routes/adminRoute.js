@@ -5,7 +5,7 @@ const router = express()
 
 const authJwt = require("../middlewares/auth");
 
-const { profileImage, form1Image, form2Image, form3Image, form4Image, form5Image, form6Image, form7Image } = require('../middlewares/imageUpload');
+const { profileImage, form1Image, form2Image, form3Image, form4Image, bannerImage } = require('../middlewares/imageUpload');
 
 
 
@@ -37,24 +37,24 @@ module.exports = (app) => {
     app.get('/api/v1/admin/form3/byForm2/:form2Id', [authJwt.isAdmin], auth.getForm3ByForm2);
     app.put('/api/v1/admin/form3/:form3Id', [authJwt.isAdmin], form3Image.single('image'), auth.updateForm3);
     app.delete('/api/v1/admin/form3/:form3Id', [authJwt.isAdmin], auth.deleteForm3);
-    app.post('/api/v1/admin/form4', [authJwt.isAdmin], form4Image.single('image'), auth.createForm4);
+    app.post('/api/v1/admin/form4', [authJwt.isAdmin], auth.createForm4);
     app.get('/api/v1/admin/form4', [authJwt.isAdmin], auth.getAllForm4);
     app.get('/api/v1/admin/form4/:form4Id', [authJwt.isAdmin], auth.getForm4ById);
     app.get('/api/v1/admin/form4/byForm1/:form1Id', [authJwt.isAdmin], auth.getForm4ByForm1);
     app.get('/api/v1/admin/form4/byForm2/:form2Id', [authJwt.isAdmin], auth.getForm4ByForm2);
     app.get('/api/v1/admin/form4/byForm3/:form3Id', [authJwt.isAdmin], auth.getForm4ByForm3);
-    app.put('/api/v1/admin/form4/:form4Id', [authJwt.isAdmin], form4Image.single('image'), auth.updateForm4);
+    app.put('/api/v1/admin/form4/:form4Id', [authJwt.isAdmin], auth.updateForm4);
     app.delete('/api/v1/admin/form4/:form4Id', [authJwt.isAdmin], auth.deleteForm4);
-    app.post('/api/v1/admin/form5', [authJwt.isAdmin], form5Image.single('image'), auth.createForm5);
+    app.post('/api/v1/admin/form5', [authJwt.isAdmin], auth.createForm5);
     app.get('/api/v1/admin/form5', [authJwt.isAdmin], auth.getAllForm5);
     app.get('/api/v1/admin/form5/:form5Id', [authJwt.isAdmin], auth.getForm5ById);
     app.get('/api/v1/admin/form5/byForm1/:form1Id', [authJwt.isAdmin], auth.getForm5ByForm1);
     app.get('/api/v1/admin/form5/byForm2/:form2Id', [authJwt.isAdmin], auth.getForm5ByForm2);
     app.get('/api/v1/admin/form5/byForm3/:form3Id', [authJwt.isAdmin], auth.getForm5ByForm3);
     app.get('/api/v1/admin/form5/byForm4/:form4Id', [authJwt.isAdmin], auth.getForm5ByForm4);
-    app.put('/api/v1/admin/form5/:form5Id', [authJwt.isAdmin], form5Image.single('image'), auth.updateForm5);
+    app.put('/api/v1/admin/form5/:form5Id', [authJwt.isAdmin], auth.updateForm5);
     app.delete('/api/v1/admin/form5/:form5Id', [authJwt.isAdmin], auth.deleteForm5);
-    app.post('/api/v1/admin/form6', [authJwt.isAdmin], form6Image.single('image'), auth.createForm6);
+    app.post('/api/v1/admin/form6', [authJwt.isAdmin], auth.createForm6);
     app.get('/api/v1/admin/form6', [authJwt.isAdmin], auth.getAllForm6);
     app.get('/api/v1/admin/form6/:form6Id', [authJwt.isAdmin], auth.getForm6ById);
     app.get('/api/v1/admin/form6/byForm1/:form1Id', [authJwt.isAdmin], auth.getForm6ByForm1);
@@ -62,9 +62,9 @@ module.exports = (app) => {
     app.get('/api/v1/admin/form6/byForm3/:form3Id', [authJwt.isAdmin], auth.getForm6ByForm3);
     app.get('/api/v1/admin/form6/byForm4/:form4Id', [authJwt.isAdmin], auth.getForm6ByForm4);
     app.get('/api/v1/admin/form6/byForm5/:form5Id', [authJwt.isAdmin], auth.getForm6ByForm5);
-    app.put('/api/v1/admin/form6/:form6Id', [authJwt.isAdmin], form6Image.single('image'), auth.updateForm6);
+    app.put('/api/v1/admin/form6/:form6Id', [authJwt.isAdmin], auth.updateForm6);
     app.delete('/api/v1/admin/form6/:form6Id', [authJwt.isAdmin], auth.deleteForm6);
-    app.post('/api/v1/admin/form7', [authJwt.isAdmin], form7Image.single('image'), auth.createForm7);
+    app.post('/api/v1/admin/form7', [authJwt.isAdmin], auth.createForm7);
     app.get('/api/v1/admin/form7', [authJwt.isAdmin], auth.getAllForm7);
     app.get('/api/v1/admin/form7/:form7Id', [authJwt.isAdmin], auth.getForm7ById);
     app.get('/api/v1/admin/form7/byForm1/:form1Id', [authJwt.isAdmin], auth.getForm7ByForm1);
@@ -73,8 +73,21 @@ module.exports = (app) => {
     app.get('/api/v1/admin/form7/byForm4/:form4Id', [authJwt.isAdmin], auth.getForm7ByForm4);
     app.get('/api/v1/admin/form7/byForm5/:form5Id', [authJwt.isAdmin], auth.getForm7ByForm5);
     app.get('/api/v1/admin/form7/byForm6/:form6Id', [authJwt.isAdmin], auth.getForm7ByForm6);
-    app.put('/api/v1/admin/form7/:form7Id', [authJwt.isAdmin], form7Image.single('image'), auth.updateForm7);
+    app.put('/api/v1/admin/form7/:form7Id', [authJwt.isAdmin], auth.updateForm7);
     app.delete('/api/v1/admin/form7/:form7Id', [authJwt.isAdmin], auth.deleteForm7);
-
+    app.get('/api/v1/admin/form8', [authJwt.isAdmin], auth.getAllForm8);
+    app.get('/api/v1/admin/form8/:form8Id', [authJwt.isAdmin], auth.getForm8ById);
+    app.get('/api/v1/admin/form8/byForm1/:form1Id', [authJwt.isAdmin], auth.getForm8ByForm1);
+    app.get('/api/v1/admin/form8/byForm2/:form2Id', [authJwt.isAdmin], auth.getForm8ByForm2);
+    app.get('/api/v1/admin/form8/byForm3/:form3Id', [authJwt.isAdmin], auth.getForm8ByForm3);
+    app.get('/api/v1/admin/form8/byForm4/:form4Id', [authJwt.isAdmin], auth.getForm8ByForm4);
+    app.get('/api/v1/admin/form8/byForm5/:form5Id', [authJwt.isAdmin], auth.getForm8ByForm5);
+    app.get('/api/v1/admin/form8/byForm6/:form6Id', [authJwt.isAdmin], auth.getForm8ByForm6);
+    app.get('/api/v1/admin/form8/byForm7/:form7Id', [authJwt.isAdmin], auth.getForm8ByForm7);
+    app.post('/api/v1/admin/banner', [authJwt.isAdmin], bannerImage.single('image'), auth.createBanner);
+    app.get('/api/v1/admin/banner', [authJwt.isAdmin], auth.getAllBanners);
+    app.get('/api/v1/admin/banner/:id', [authJwt.isAdmin], auth.getBannerById);
+    app.put('/api/v1/admin/banner/:id', [authJwt.isAdmin], bannerImage.single('image'), auth.updateBanner);
+    app.delete('/api/v1/admin/banner/:id', [authJwt.isAdmin], auth.deleteBanner);
 
 }

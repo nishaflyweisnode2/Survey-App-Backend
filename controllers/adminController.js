@@ -12,6 +12,8 @@ const Form4 = require('../models/form4Model');
 const Form5 = require('../models/form5Model');
 const Form6 = require('../models/form6Model');
 const Form7 = require('../models/form7Model');
+const Form8 = require('../models/form8Model');
+const Banner = require('../models/bannerModel');
 
 
 
@@ -1395,5 +1397,240 @@ exports.deleteForm7 = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getAllForm8 = async (req, res) => {
+    try {
+        const categories = await Form8.find();
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Form8 categories retrieved successfully',
+            data: categories,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ById = async (req, res) => {
+    try {
+        const form8Id = req.params.form8Id;
+        const category = await Form8.findById(form8Id);
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form8 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm1 = async (req, res) => {
+    try {
+        const form1Id = req.params.form1Id;
+        const category = await Form8.find({ form1: form1Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form1 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm2 = async (req, res) => {
+    try {
+        const form2Id = req.params.form2Id;
+        const category = await Form8.find({ form2: form2Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form2 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm3 = async (req, res) => {
+    try {
+        const form3Id = req.params.form3Id;
+        const category = await Form8.find({ form3: form3Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form3 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm4 = async (req, res) => {
+    try {
+        const form4Id = req.params.form4Id;
+        const category = await Form8.find({ form4: form4Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form4 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm5 = async (req, res) => {
+    try {
+        const form5Id = req.params.form5Id;
+        const category = await Form8.find({ form5: form5Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form5 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm6 = async (req, res) => {
+    try {
+        const form6Id = req.params.form6Id;
+        const category = await Form8.find({ form6: form6Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form6 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.getForm8ByForm7 = async (req, res) => {
+    try {
+        const form7Id = req.params.form7Id;
+        const category = await Form8.find({ form7: form7Id });
+
+        if (!category) {
+            return res.status(404).json({ status: 404, message: 'Form7 category not found', data: null });
+        }
+
+        return res.status(200).json({ status: 200, message: 'Form8 category retrieved successfully', data: category });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, message: 'Server error', data: null });
+    }
+};
+
+exports.createBanner = async (req, res) => {
+    try {
+        const { title, description } = req.body;
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: 'User not found' });
+        }
+
+        let imagePath = null;
+        if (req.file) {
+            imagePath = req.file.path;
+        }
+
+        const banner = await Banner.create({ title, image: imagePath, description, createdBy: user._id });
+        return res.status(201).json({ status: 201, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getAllBanners = async (req, res) => {
+    try {
+        const banners = await Banner.find();
+        return res.status(200).json({ status: 200, data: banners });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getBannerById = async (req, res) => {
+    try {
+        const banner = await Banner.findById(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Banner not found' });
+        }
+        return res.status(200).json({ status: 200, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.updateBanner = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: 'User not found' });
+        }
+
+        let imagePath;
+        if (req.file) {
+            imagePath = req.file.path;
+        }
+
+        const banner = await Banner.findByIdAndUpdate(req.params.id, { 
+            ...req.body,
+            image: imagePath 
+        }, { 
+            new: true,
+            runValidators: true
+        });
+
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Banner not found' });
+        }
+
+        return res.status(200).json({ status: 200, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.deleteBanner = async (req, res) => {
+    try {
+        const banner = await Banner.findByIdAndDelete(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Banner not found' });
+        }
+        res.status(200).json({ success: true, data: {} });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
     }
 };

@@ -14,6 +14,8 @@ const Form6 = require('../models/form6Model');
 const Form7 = require('../models/form7Model');
 const Form8 = require('../models/form8Model');
 const Banner = require('../models/bannerModel');
+const Template = require('../models/templateModel');
+const SurveyForms = require('../models/surveyFormModel');
 
 
 
@@ -1109,7 +1111,7 @@ exports.createChangeRequest = async (req, res) => {
         if (!user) {
             return res.status(404).json({ status: 404, message: 'User not found' });
         }
-        
+
         const banner = await Banner.findById(req.params.id);
         if (!banner) {
             return res.status(404).json({ success: false, error: 'Banner not found' });
@@ -1127,5 +1129,178 @@ exports.createChangeRequest = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+exports.createTemplate = async (req, res) => {
+    try {
+        const { header1, header2, header3, rightHeader3, label1, sponserName, sponserPost } = req.body;
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: 'User not found' });
+        }
+
+        let imagePath = null;
+        if (req.file) {
+            imagePath = req.file.path;
+        }
+
+        const banner = await Template.create({ header1, header2, header3, rightHeader3, label1, sponserName, sponserPost, image: imagePath, createdBy: user._id });
+        return res.status(201).json({ status: 201, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getAllTemplate = async (req, res) => {
+    try {
+        const banners = await Template.find();
+        return res.status(200).json({ status: 200, data: banners });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getTemplateById = async (req, res) => {
+    try {
+        const banner = await Template.findById(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Template not found' });
+        }
+        return res.status(200).json({ status: 200, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.updateTemplate = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: 'User not found' });
+        }
+
+        let imagePath;
+        if (req.file) {
+            imagePath = req.file.path;
+        }
+
+        const banner = await Template.findByIdAndUpdate(req.params.id, {
+            ...req.body,
+            image: imagePath
+        }, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Template not found' });
+        }
+
+        return res.status(200).json({ status: 200, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.deleteTemplate = async (req, res) => {
+    try {
+        const banner = await Template.findByIdAndDelete(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Template not found' });
+        }
+        res.status(200).json({ success: true, data: {} });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.createSurveyForms = async (req, res) => {
+    try {
+        const { name, description, mobileNumber } = req.body;
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: 'User not found' });
+        }
+
+        const banner = await SurveyForms.create({ name, description, mobileNumber, createdBy: user._id });
+        return res.status(201).json({ status: 201, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getAllSurveyForms = async (req, res) => {
+    try {
+        const banners = await SurveyForms.find();
+        return res.status(200).json({ status: 200, data: banners });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getSurveyFormsById = async (req, res) => {
+    try {
+        const banner = await SurveyForms.findById(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'SurveyForms not found' });
+        }
+        return res.status(200).json({ status: 200, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.updateSurveyForms = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: 'User not found' });
+        }
+
+        const banner = await SurveyForms.findByIdAndUpdate(req.params.id, {
+            ...req.body,
+        }, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'SurveyForms not found' });
+        }
+
+        return res.status(200).json({ status: 200, data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.deleteSurveyForms = async (req, res) => {
+    try {
+        const banner = await SurveyForms.findByIdAndDelete(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'SurveyForms not found' });
+        }
+        res.status(200).json({ success: true, data: {} });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
     }
 };

@@ -89,5 +89,9 @@ module.exports = (app) => {
     app.get('/api/v1/admin/banner/:id', [authJwt.isAdmin], auth.getBannerById);
     app.put('/api/v1/admin/banner/:id', [authJwt.isAdmin], bannerImage.single('image'), auth.updateBanner);
     app.delete('/api/v1/admin/banner/:id', [authJwt.isAdmin], auth.deleteBanner);
+    app.get('/api/v1/admin/banner/:id/change-requests', [authJwt.isAdmin], auth.getChangeRequests);
+    app.put('/api/v1/admin/banner/:bannerId/change-requests/:requestId', [authJwt.isAdmin], auth.updateChangeRequestStatus);
+    app.get('/api/v1/admin/template', [authJwt.isAdmin], auth.getAllTemplate);
+    app.get('/api/v1/admin/template/:id', [authJwt.isAdmin], auth.getTemplateById);
 
 }

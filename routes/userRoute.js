@@ -5,7 +5,7 @@ const router = express()
 
 const authJwt = require("../middlewares/auth");
 
-const { profileImage, form4Image, form5Image, bannerImage } = require('../middlewares/imageUpload');
+const { profileImage, form4Image, form5Image, bannerImage, templateImage } = require('../middlewares/imageUpload');
 
 
 
@@ -69,6 +69,15 @@ module.exports = (app) => {
     app.get('/api/v1/user/banner', [authJwt.verifyToken], auth.getAllBanners);
     app.get('/api/v1/user/banner/:id', [authJwt.verifyToken], auth.getBannerById);
     app.post('/api/v1/user/banner/:id/change-request', [authJwt.verifyToken], auth.createChangeRequest);
-
+    app.post('/api/v1/user/template/create', [authJwt.verifyToken], templateImage.single('image'), auth.createTemplate);
+    app.get('/api/v1/user/template', [authJwt.verifyToken], auth.getAllTemplate);
+    app.get('/api/v1/user/template/:id', [authJwt.verifyToken], auth.getTemplateById);
+    app.put('/api/v1/user/template/:id', [authJwt.verifyToken], templateImage.single('image'), auth.updateTemplate);
+    app.delete('/api/v1/user/template/:id', [authJwt.verifyToken], auth.deleteTemplate);
+    app.post('/api/v1/user/sureveyforms/create', [authJwt.verifyToken], auth.createSurveyForms);
+    app.get('/api/v1/user/sureveyforms', [authJwt.verifyToken], auth.getAllSurveyForms);
+    app.get('/api/v1/user/sureveyforms/:id', [authJwt.verifyToken], auth.getSurveyFormsById);
+    app.put('/api/v1/user/sureveyforms/:id', [authJwt.verifyToken], auth.updateSurveyForms);
+    app.delete('/api/v1/user/sureveyforms/:id', [authJwt.verifyToken], auth.deleteSurveyForms);
 
 }

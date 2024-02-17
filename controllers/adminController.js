@@ -14,6 +14,7 @@ const Form6 = require('../models/form6Model');
 const Form7 = require('../models/form7Model');
 const Form8 = require('../models/form8Model');
 const Banner = require('../models/bannerModel');
+const Template = require('../models/templateModel');
 
 
 
@@ -1603,10 +1604,10 @@ exports.updateBanner = async (req, res) => {
             imagePath = req.file.path;
         }
 
-        const banner = await Banner.findByIdAndUpdate(req.params.id, { 
+        const banner = await Banner.findByIdAndUpdate(req.params.id, {
             ...req.body,
-            image: imagePath 
-        }, { 
+            image: imagePath
+        }, {
             new: true,
             runValidators: true
         });
@@ -1629,6 +1630,70 @@ exports.deleteBanner = async (req, res) => {
             return res.status(404).json({ success: false, error: 'Banner not found' });
         }
         res.status(200).json({ success: true, data: {} });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getChangeRequests = async (req, res) => {
+    try {
+        const banner = await Banner.findById(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Banner not found' });
+        }
+
+        const changeRequests = banner.changeRequests;
+
+        return res.status(200).json({ success: true, data: changeRequests });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+exports.updateChangeRequestStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+
+        const banner = await Banner.findById(req.params.bannerId);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Banner not found' });
+        }
+
+        const changeRequest = banner.changeRequests.find(request => request._id == req.params.requestId);
+        if (!changeRequest) {
+            return res.status(404).json({ success: false, error: 'Change request not found' });
+        }
+
+        changeRequest.status = status;
+
+        await banner.save();
+
+        return res.status(200).json({ success: true, message: 'Change request status updated successfully', data: banner });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+exports.getAllTemplate = async (req, res) => {
+    try {
+        const banners = await Template.find();
+        return res.status(200).json({ status: 200, data: banners });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getTemplateById = async (req, res) => {
+    try {
+        const banner = await Template.findById(req.params.id);
+        if (!banner) {
+            return res.status(404).json({ success: false, error: 'Template not found' });
+        }
+        return res.status(200).json({ status: 200, data: banner });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ status: 500, error: 'Server Error' });

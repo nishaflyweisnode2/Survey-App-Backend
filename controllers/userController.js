@@ -16,6 +16,7 @@ const Form8 = require('../models/form8Model');
 const Banner = require('../models/bannerModel');
 const Template = require('../models/templateModel');
 const SurveyForms = require('../models/surveyFormModel');
+const Members = require('../models/addMemberModel');
 
 
 
@@ -1105,12 +1106,12 @@ exports.getBannerById = async (req, res) => {
 exports.createChangeRequest = async (req, res) => {
     try {
         const { comment } = req.body;
-        const userId = req.user._id;
+        // const userId = req.user._id;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ status: 404, message: 'User not found' });
-        }
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ status: 404, message: 'User not found' });
+        // }
 
         const banner = await Banner.findById(req.params.id);
         if (!banner) {
@@ -1118,7 +1119,7 @@ exports.createChangeRequest = async (req, res) => {
         }
 
         banner.changeRequests.push({
-            user: userId,
+            // user: userId,
             comment: comment,
             status: 'Pending'
         });
@@ -1135,19 +1136,19 @@ exports.createChangeRequest = async (req, res) => {
 exports.createTemplate = async (req, res) => {
     try {
         const { header1, header2, header3, rightHeader3, label1, sponserName, sponserPost } = req.body;
-        const userId = req.user._id;
+        // const userId = req.user._id;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ status: 404, message: 'User not found' });
-        }
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ status: 404, message: 'User not found' });
+        // }
 
         let imagePath = null;
         if (req.file) {
             imagePath = req.file.path;
         }
 
-        const banner = await Template.create({ header1, header2, header3, rightHeader3, label1, sponserName, sponserPost, image: imagePath, createdBy: user._id });
+        const banner = await Template.create({ header1, header2, header3, rightHeader3, label1, sponserName, sponserPost, image: imagePath, /*createdBy: user._id*/ });
         return res.status(201).json({ status: 201, data: banner });
     } catch (error) {
         console.error(error);
@@ -1180,12 +1181,12 @@ exports.getTemplateById = async (req, res) => {
 
 exports.updateTemplate = async (req, res) => {
     try {
-        const userId = req.user._id;
+        // const userId = req.user._id;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ status: 404, message: 'User not found' });
-        }
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ status: 404, message: 'User not found' });
+        // }
 
         let imagePath;
         if (req.file) {
@@ -1227,14 +1228,14 @@ exports.deleteTemplate = async (req, res) => {
 exports.createSurveyForms = async (req, res) => {
     try {
         const { name, description, mobileNumber } = req.body;
-        const userId = req.user._id;
+        // const userId = req.user._id;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ status: 404, message: 'User not found' });
-        }
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ status: 404, message: 'User not found' });
+        // }
 
-        const banner = await SurveyForms.create({ name, description, mobileNumber, createdBy: user._id });
+        const banner = await SurveyForms.create({ name, description, mobileNumber, /*createdBy: user._id*/ });
         return res.status(201).json({ status: 201, data: banner });
     } catch (error) {
         console.error(error);
@@ -1267,12 +1268,12 @@ exports.getSurveyFormsById = async (req, res) => {
 
 exports.updateSurveyForms = async (req, res) => {
     try {
-        const userId = req.user._id;
+        // const userId = req.user._id;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ status: 404, message: 'User not found' });
-        }
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     return res.status(404).json({ status: 404, message: 'User not found' });
+        // }
 
         const banner = await SurveyForms.findByIdAndUpdate(req.params.id, {
             ...req.body,
@@ -1302,5 +1303,81 @@ exports.deleteSurveyForms = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.createMember = async (req, res) => {
+    try {
+        const { post, typeOfPost, name, age, gender, caste, mobileNumber, description } = req.body;
+
+        let imagePath = null;
+        if (req.file) {
+            imagePath = req.file.path;
+        }
+
+        const newMember = await Members.create({ post, typeOfPost, name, age, gender, caste, mobileNumber, description, image: imagePath, });
+        return res.status(201).json({ status: 201, success: true, data: newMember });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
+    }
+};
+
+exports.getAllMembers = async (req, res) => {
+    try {
+        const members = await Members.find();
+        return res.status(200).json({ status: 200, success: true, data: members });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
+    }
+};
+
+exports.getMemberById = async (req, res) => {
+    try {
+        const member = await Members.findById(req.params.id);
+        if (!member) {
+            return res.status(404).json({ success: false, error: 'Member not found' });
+        }
+        return res.status(200).json({ status: 200, success: true, data: member });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
+    }
+};
+
+exports.updateMember = async (req, res) => {
+    try {
+
+        let imagePath;
+        if (req.file) {
+            imagePath = req.file.path;
+        }
+
+        const updatedMember = await Members.findByIdAndUpdate(req.params.id, {
+            ...req.body, image: imagePath
+        },
+            { new: true });
+
+        if (!updatedMember) {
+            return res.status(404).json({ status: 404, success: false, error: 'Member not found' });
+        }
+        return res.status(200).json({ status: 200, success: true, data: updatedMember });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
+    }
+};
+
+exports.deleteMember = async (req, res) => {
+    try {
+        const deletedMember = await Members.findByIdAndDelete(req.params.id);
+        if (!deletedMember) {
+            return res.status(404).json({ status: 404, success: false, error: 'Member not found' });
+        }
+        return res.status(200).json({ status: 200, success: true, data: {} });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
     }
 };

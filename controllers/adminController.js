@@ -15,6 +15,7 @@ const Form7 = require('../models/form7Model');
 const Form8 = require('../models/form8Model');
 const Banner = require('../models/bannerModel');
 const Template = require('../models/templateModel');
+const Members = require('../models/addMemberModel');
 
 
 
@@ -1697,5 +1698,28 @@ exports.getTemplateById = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ status: 500, error: 'Server Error' });
+    }
+};
+
+exports.getAllMembers = async (req, res) => {
+    try {
+        const members = await Members.find();
+        return res.status(200).json({ status: 200, success: true, data: members });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
+    }
+};
+
+exports.getMemberById = async (req, res) => {
+    try {
+        const member = await Members.findById(req.params.id);
+        if (!member) {
+            return res.status(404).json({ success: false, error: 'Member not found' });
+        }
+        return res.status(200).json({ status: 200, success: true, data: member });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: 500, success: false, error: 'Server Error' });
     }
 };

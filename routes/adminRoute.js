@@ -93,5 +93,7 @@ module.exports = (app) => {
     app.put('/api/v1/admin/banner/:bannerId/change-requests/:requestId', [authJwt.isAdmin], auth.updateChangeRequestStatus);
     app.get('/api/v1/admin/template', [authJwt.isAdmin], auth.getAllTemplate);
     app.get('/api/v1/admin/template/:id', [authJwt.isAdmin], auth.getTemplateById);
+    app.get('/api/v1/user/member', [authJwt.verifyToken], auth.getAllMembers);
+    app.get('/api/v1/user/member/:id', [authJwt.verifyToken], auth.getMemberById);
 
-}
+}    

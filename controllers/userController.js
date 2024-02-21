@@ -773,7 +773,7 @@ exports.getForm7ByForm5 = async (req, res) => {
 exports.getForm7ByForm6 = async (req, res) => {
     try {
         const form6Id = req.params.form6Id;
-        const category = await Form7.find({ form5: form6Id });
+        const category = await Form7.find({ form6: form6Id });
 
         if (!category) {
             return res.status(404).json({ status: 404, message: 'Form6 category not found', data: null });
